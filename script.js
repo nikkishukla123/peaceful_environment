@@ -201,3 +201,114 @@ eventCards.forEach(card => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
     });
 });
+// ==================== FORM VALIDATION ====================
+const contactForm = document.querySelector('.contact-form');
+const formInputs = contactForm.querySelectorAll('input, textarea');
+
+formInputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        input.style.transform = 'scale(1.02)';
+    });
+    
+    input.addEventListener('blur', () => {
+        input.style.transform = 'scale(1)';
+    });
+});
+
+contactForm.querySelector('button').addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Simple validation
+    let isValid = true;
+    formInputs.forEach(input => {
+        if (!input.value) {
+            input.style.borderColor = '#ff4444';
+            isValid = false;
+        } else {
+            input.style.borderColor = '#4ade80';
+        }
+    });
+    
+    if (isValid) {
+        // Success animation
+        const button = contactForm.querySelector('button');
+        button.textContent = '✓ Message Sent!';
+        button.style.background = '#4ade80';
+        
+        setTimeout(() => {
+            button.textContent = 'Send Message';
+            button.style.background = '';
+            formInputs.forEach(input => {
+                input.value = '';
+                input.style.borderColor = '#e0e0e0';
+            });
+        }, 3000);
+    }
+});
+
+// ==================== CURSOR TRAIL EFFECT (Optional) ====================
+let cursorTrail = [];
+const trailLength = 20;
+
+document.addEventListener('mousemove', (e) => {
+    cursorTrail.push({ x: e.clientX, y: e.clientY });
+    
+    if (cursorTrail.length > trailLength) {
+        cursorTrail.shift();
+    }
+});
+
+// ==================== SCROLL PROGRESS INDICATOR ====================
+const scrollProgress = document.createElement('div');
+scrollProgress.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b35, #f7931e);
+    z-index: 9999;
+    transition: width 0.1s ease;
+`;
+document.body.appendChild(scrollProgress);
+
+window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    scrollProgress.style.width = scrolled + '%';
+});
+
+// ==================== LAZY LOADING IMAGES ====================
+const images = document.querySelectorAll('img');
+
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                img.style.opacity = '1';
+            }, 100);
+            
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+images.forEach(img => imageObserver.observe(img));
+
+// ==================== PAGE LOAD ANIMATION ====================
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+// ==================== CONSOLE MESSAGE ====================
+console.log('%c🕉️ Welcome to Sadhguru Inspired Website', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
+console.log('%cThis is a learning project created with respect and reverence.', 'color: #2c5f2d; font-size: 14px;');
+console.log('%cNot affiliated with Isha Foundation.', 'color: #666; font-size: 12px;');
