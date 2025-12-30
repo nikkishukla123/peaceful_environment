@@ -44,3 +44,25 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+// ==================== HERO BACKGROUND ROTATION ====================
+let heroImages = document.querySelectorAll('.hero-bg-image');
+let heroCurrentIndex = 0;
+
+function rotateHeroImages() {
+    heroImages[heroCurrentIndex].classList.remove('active');
+    heroCurrentIndex = (heroCurrentIndex + 1) % heroImages.length;
+    heroImages[heroCurrentIndex].classList.add('active');
+}
+
+// Change hero background every 5 seconds
+setInterval(rotateHeroImages, 5000);
+
+// ==================== QUOTES SLIDER ====================
+let quotes = document.querySelectorAll('.quote');
+let quoteIndex = 0;
+
+function rotateQuotes() {
+    quotes[quoteIndex].classList.remove('active');
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    quotes[quoteIndex].classList.add('active');
+}
