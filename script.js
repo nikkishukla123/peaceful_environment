@@ -12,3 +12,15 @@ hamburger.addEventListener('click', () => {
     spans[1].style.opacity = navMenu.classList.contains('active') ? '0' : '1';
     spans[2].style.transform = navMenu.classList.contains('active') ? 'rotate(-45deg) translate(7px, -6px)' : 'none';
 });
+// Close menu when clicking on a link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        
+        // Reset hamburger animation
+        const spans = hamburger.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    });
+});
