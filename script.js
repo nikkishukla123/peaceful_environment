@@ -83,3 +83,25 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
+// Observe all cards and sections for scroll animation
+const animatedElements = document.querySelectorAll(
+    '.event-card, .spiritual-card, .stat-card, .about-text, .about-image, .savesoil-text, .savesoil-image'
+);
+
+animatedElements.forEach((element, index) => {
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(50px)';
+    element.style.transition = `all 0.8s ease ${index * 0.1}s`;
+    observer.observe(element);
+});
+
+// ==================== PARALLAX EFFECT ====================
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.hero-bg-image');
+    
+    parallaxElements.forEach(element => {
+        const speed = 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
